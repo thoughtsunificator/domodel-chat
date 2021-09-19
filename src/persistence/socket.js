@@ -4,13 +4,13 @@ import Chat from "./socket/chat.js"
 import Messages from "./socket/messages.js"
 import Users from "./socket/users.js"
 
-import Config from "data/config.js"
+import config from ":config"
 
 export default async properties => {
 
 	const { chat } = properties
 
-	const socket = io.connect(Config.SOCKET_URL, { ...Config.SOCKET_OPTIONS, transports : ['websocket'] })
+	const socket = io.connect(config.SOCKET_URL, { ...config.SOCKET_OPTIONS, transports : ['websocket'] })
 
 	socket.on("connect_error", (err) => {
 		console.log(`connect_error due to ${err.message}`, err);

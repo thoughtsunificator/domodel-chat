@@ -8,6 +8,8 @@ import rootImport from "rollup-plugin-root-import"
 import serve from "rollup-plugin-serve"
 import livereload from "rollup-plugin-livereload"
 
+import config from "./rollup/plugin-config"
+
 export default {
 	input: "./src/main.js",
 	output: {
@@ -27,12 +29,12 @@ export default {
 			flatten: false
 		}),
 		nodeResolve(),
+		config,
 		alias({
 			entries: [
 				{ find:/^lib\/(.*)/, replacement: "./lib/$1" },
 				{ find:/^assets\/(.*)/, replacement: "./assets/$1" },
-				{ find:/^data\/(.*)/, replacement: "./data/$1" },
-				{ find:/^\.env\.js$/, replacement: "./.env.js" }
+				{ find:/^data\/(.*)/, replacement: "./data/$1" }
 			]
 		}),
 		rootImport({

@@ -8,6 +8,8 @@ import { nodeResolve } from "@rollup/plugin-node-resolve"
 import rootImport from "rollup-plugin-root-import"
 import alias from "@rollup/plugin-alias"
 
+import config from "./rollup/plugin-config"
+
 export default {
 	input: "./src/main.js",
 	output: {
@@ -28,6 +30,7 @@ export default {
 			flatten: false
 		}),
 		nodeResolve(),
+		config,
 		alias({
 			entries: [
 				{ find:/^lib\/(.*)/, replacement: "./lib/$1" },

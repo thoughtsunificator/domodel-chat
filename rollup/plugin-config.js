@@ -20,15 +20,23 @@ export default {
 		if(id === ":config") {
 			let envFile
 			if (fs.existsSync('.env.json')) {
-				let data = fs.readFileSync('.env.json');
-				envFile = JSON.parse(data)
+				try {
+					let data = fs.readFileSync('.env.json');
+					envFile = JSON.parse(data)
+				} catch(ex) {
+					console.error(ex)
+				}
 			} else {
 				envFile = {}
 			}
 			let configFile
 			if (fs.existsSync('data/config.json')) {
-				let data = fs.readFileSync('data/config.json');
-				configFile = JSON.parse(data)
+				try {
+					let data = fs.readFileSync('data/config.json');
+					configFile = JSON.parse(data)
+				} catch(ex) {
+					console.error(ex)
+				}
 			} else {
 				configFile = {}
 			}

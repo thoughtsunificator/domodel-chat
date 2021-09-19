@@ -1,0 +1,76 @@
+#chat {
+	display: grid;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.32);
+	grid-template-rows: 20px 1fr auto;
+	grid-template-columns: 200px 1fr;
+	grid-gap: var(--SIZE_XS);
+	padding: var(--SIZE_XS);
+}
+
+#channels {
+	background-color: white;
+	overflow: auto;
+	height: 100%;
+	grid-row: span 3;
+}
+
+#channels .channel {
+	background-color: gray;
+	cursor: pointer;
+	padding: 5px;
+}
+
+#messages {
+	background-color: white;
+	overflow: auto;
+	grid-area: span 2 / 2;
+	word-break: break-word;
+}
+
+#topic {
+	display: none;
+	background-color: white;
+	overflow-x: hidden;
+	white-space: nowrap;
+}
+
+#input {
+	display: flex;
+	grid-area: 3 / 2;
+}
+
+#input > input {
+	flex-grow: 1
+}
+
+#users {
+	display: none;
+	grid-area: span 3 / 3;
+	width: 200px;
+	grid-template-rows: 20px 1fr;
+	grid-gap: var(--SIZE_XS);
+}
+
+#users .counter {
+	background-color: white;
+	border: 1px solid black;
+	text-align: center;
+	grid-row: 1;
+	overflow-x: hidden;
+	white-space: nowrap;
+	scrollbar-width: none;
+}
+
+#users .list {
+	background-color: white;
+	overflow: auto;
+	grid-row-start: span 2;
+	grid-row-end: auto;
+}
+
+#users .user {
+	cursor: pointer;
+	padding: 5px;
+}

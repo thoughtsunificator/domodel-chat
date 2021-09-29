@@ -13,7 +13,8 @@
 		"rollup-plugin-postcss": "^4.0.0",
 		"rollup-plugin-root-import": "^1.0.0",
 		"rollup-plugin-serve": "^1.1.0",
-		"rollup-plugin-terser": "^7.0.2"
+		"rollup-plugin-terser": "^7.0.2",
+		"@thoughtsunificator/rollup-plugin-config-env": "^1.0.3"
 	},
 	"scripts": {
 		"generate-docs": "jsdoc --configure .jsdoc.json --verbose",
@@ -24,7 +25,6 @@
 	"dependencies": {
 		"@thoughtsunificator/command-processor": "^1.0.4",
 		"@thoughtsunificator/message-parser": "^1.0.6",
-		"@thoughtsunificator/rollup-plugin-config-env": "^1.0.3",
 		"css-generics": "^1.0.0",
 		"domodel": "^1.0.7",
 		"socket.io-client": "^4.1.3"

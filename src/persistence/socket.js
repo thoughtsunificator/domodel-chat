@@ -16,10 +16,12 @@ export default async properties => {
 		console.log(`connect_error due to ${err.message}`, err);
 	});
 
-	Chat({ chat, socket })
-	Channels({ chat, socket })
-	Messages({ chat, socket })
-	Users({ chat, socket })
-	Input({ chat, socket })
+	const properties_ = { ...properties, socket }
+
+	Chat(properties_)
+	Channels(properties_)
+	Messages(properties_)
+	Users(properties_)
+	Input(properties_)
 
 }

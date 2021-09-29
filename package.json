@@ -13,7 +13,8 @@
 		"rollup-plugin-postcss": "^4.0.0",
 		"rollup-plugin-root-import": "^1.0.0",
 		"rollup-plugin-serve": "^1.1.0",
-		"rollup-plugin-terser": "^7.0.2"
+		"rollup-plugin-terser": "^7.0.2",
+		"@thoughtsunificator/rollup-plugin-config-env": "^1.0.3"
 	},
 	"scripts": {
 		"generate-docs": "jsdoc --configure .jsdoc.json --verbose",
@@ -37,5 +38,5 @@
 	},
 	"author": "Romain Lebesle <oss@thoughtsunificator.me> (https://thoughtsunificator.me)",
 	"license": "MIT",
-	"version": "0.0.4"
+	"version": "0.0.6"
 }

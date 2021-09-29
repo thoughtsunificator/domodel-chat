@@ -7,8 +7,7 @@ import copy from "rollup-plugin-copy-watch"
 import { nodeResolve } from "@rollup/plugin-node-resolve"
 import rootImport from "rollup-plugin-root-import"
 import alias from "@rollup/plugin-alias"
-
-import config from "./rollup/plugin-config"
+import configEnv from "@thoughtsunificator/rollup-plugin-config-env"
 
 export default {
 	input: "./src/main.js",
@@ -30,7 +29,7 @@ export default {
 			flatten: false
 		}),
 		nodeResolve(),
-		config,
+		configEnv,
 		alias({
 			entries: [
 				{ find:/^lib\/(.*)/, replacement: "./lib/$1" },

@@ -12,8 +12,8 @@ jobs:
       - name: git-checkout
         uses: actions/checkout@v2
 
-      - name: Install all dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build
         run: npm run build # The build command of your project

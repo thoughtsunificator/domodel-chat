@@ -10,8 +10,6 @@ const SOCKET_STATE_INITIAL = "SOCKET_STATE_INITIAL"
 export const SOCKET_STATE_CONNECTED = "SOCKET_STATE_CONNECTED"
 export const SOCKET_STATE_DISCONNECTED = "SOCKET_STATE_DISCONNECTED"
 
-console.log(Tokenizer.tokenize("#Programming #Music #Videos"))
-
 export default class extends Observable {
 
 	constructor() {

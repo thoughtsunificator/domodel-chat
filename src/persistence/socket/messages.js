@@ -2,7 +2,7 @@ export default (properties) => {
 
 	const { chat, socket } = properties
 
-	chat.listen("user message", data => { // FIXME naming convention
+	chat.listen("user message", data => {
 		const { nickname, message } = data
 		if (chat.channel === null) {
 			chat.emit("chat message", "No channel joined. Try /join #<channel>")

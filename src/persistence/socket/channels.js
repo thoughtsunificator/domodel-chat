@@ -56,12 +56,12 @@ export default (properties) => {
 	socket.on("channel reconnect", data => {
 		const { channel, users, nickname } = data
 		chat.user.nickname = nickname
-		chat.users = users // FIXME
+		chat.users = users
 		const channel_ = chat.channels.find(channel_ => channel_.name === channel.name)
-		channel_.users = channel.users // FIXME
+		channel_.users = channel.users
 		channel_.owner = channel.owner
 		channel_.topic = channel.topic
-		channel_.messages = channel.messages // FIXME
+		channel_.messages = channel.messages
 		channel_.disconnected = false
 		chat.emit("channel reconnected", channel_.name)
 		chat.emit("channel set", channel_)

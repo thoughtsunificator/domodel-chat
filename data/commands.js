@@ -9,6 +9,7 @@ export default [
 	new Command("delete <name>", "channel delete"),
 	new Command("topic <topic>", "channel topic"),
 	new Command("part", "channel disconnect"),
+	new Command("help", "help"),
 	new Command("disconnect", "disconnect"),
 	new Command("connect", "connect"),
 	new Command("debug", "log debug")

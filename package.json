@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@thoughtsunificator/command-processor": "^1.0.4",
-		"@thoughtsunificator/message-parser": "^1.0.6",
+		"@thoughtsunificator/message-parser": "^1.0.10",
 		"css-generics": "^1.0.0",
 		"domodel": "^1.0.7",
 		"socket.io-client": "^4.1.3"

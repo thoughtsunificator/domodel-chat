@@ -34,10 +34,10 @@ export default class extends Binding {
 		})
 
 		this.identifier.input.addEventListener("keyup", event => {
-			if (event.keyCode === 38 && _historyIndex > 0) { // history previous
+			if (event.keyCode === 38 && _historyIndex > 0) {
 				_historyIndex--
 				this.identifier.input.value = _history[_historyIndex]
-			} else if (event.keyCode === 40 && _historyIndex < _history.length - 1) { // history next
+			} else if (event.keyCode === 40 && _historyIndex < _history.length - 1) {
 				_historyIndex++
 				this.identifier.input.value = _history[_historyIndex]
 			}

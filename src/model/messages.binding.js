@@ -9,7 +9,7 @@ export default class extends Binding {
 
 		const { chat } = this.properties
 
-		this.listen(chat, "chat message", message => { // FIXME naming convention
+		this.listen(chat, "chat message", message => {
 			chat.emit("message add", {
 				message: {
 					message,
@@ -21,7 +21,7 @@ export default class extends Binding {
 
 		this.listen(chat, "message add", data => {
 			const { message, channel = null } = data
-			const replacedMessage = chat.decorateMessage(message.message)
+			const replacedMessage = chat.decorateMessage(message.message, message.source === "---")
 			if (chat.channel === null) {
 				chat.messages.push(message)
 				this.run(MessageModel({ message, replacedMessage }), { binding: new MessageBinding() })
@@ -41,7 +41,7 @@ export default class extends Binding {
 			if (chat.channel.name !== channel.name) {
 				return
 			}
-			this.root.style.gridArea = "2 / 2" // TODO
+			this.root.style.gridArea = "2 / 2"
 			this.root.innerHTML = ""
 			for (const message of channel.messages) {
 				const replacedMessage = chat.decorateMessage(message.message)
@@ -51,7 +51,7 @@ export default class extends Binding {
 
 		this.listen(chat, "channel left", () => {
 			if (chat.channels.length === 0) {
-				this.root.style.gridArea = "span 2 / 2" // TODO
+				this.root.style.gridArea = "span 2 / 2"
 				this.root.innerHTML = ""
 				for (const message of chat.messages) {
 					const replacedMessage = chat.decorateMessage(message.message)

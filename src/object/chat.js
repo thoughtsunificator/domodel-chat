@@ -38,7 +38,7 @@ export default class extends Observable {
 		this.channels.splice(index, 1)
 	}
 
-	decorateMessage(text) {
+	decorateMessage(text, server = false) {
 		const tokens = Tokenizer.tokenize(text)
 		const message = {
 			tagName: "span",
@@ -60,10 +60,14 @@ export default class extends Observable {
 					textContent: token.buffer
 				})
 			} else {
-				message.children.push({
+				const messageModel = {
 					tagName: "span",
-					textContent: token.buffer
-				})
+					textContent: token.buffer,
+				}
+				if(server) {
+					messageModel.style = `white-space: pre`
+				}
+				message.children.push(messageModel)
 			}
 		}
 		return message

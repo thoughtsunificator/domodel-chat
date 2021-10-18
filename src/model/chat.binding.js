@@ -12,11 +12,17 @@ import UsersBinding from "./users.binding.js"
 import MessagesBinding from "./messages.binding.js"
 import InputBinding from "./input.binding.js"
 
+import Commands from "data/commands.js"
+
 export default class extends Binding {
 
 	onCreated() {
 
 		const { chat } = this.properties
+
+		this.listen(chat, "help", () => {
+			chat.emit("chat message", `\nList of commands:\n${Commands.map(command => command.syntax).join("\n")}`)
+		})
 
 		this.listen(chat, "log debug", () => console.log(chat))
 

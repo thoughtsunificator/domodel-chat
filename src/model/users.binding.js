@@ -38,6 +38,10 @@ export default class extends Binding {
 			chat.emit("counter update")
 		})
 
+		this.listen(chat, "channel unset", () => {
+			this.root.style.display = "none"
+		})
+
 		this.listen(chat, "users list", () => {
 			if (chat.channel === null) {
 				chat.emit("chat message", "No channel joined. Try /join #<channel>")

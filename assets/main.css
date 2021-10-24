@@ -13,9 +13,14 @@
 
 #channels {
 	background-color: white;
-	overflow: auto;
+	overflow: hidden;
 	height: 100%;
 	grid-row: span 3;
+}
+
+#channels .list {
+	height: 100%;
+	overflow: auto;
 }
 
 #channels .channel {

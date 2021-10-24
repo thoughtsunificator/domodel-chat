@@ -11,7 +11,7 @@ export default class extends Binding {
 		const { chat } = this.properties
 
 		this.listen(chat, "channel add", channel => {
-			this.run(ChannelTabModel(channel), { binding: new ChannelTabBinding({ channel }) })
+			this.run(ChannelTabModel(channel), { parentNode: this.identifier.list, binding: new ChannelTabBinding({ channel }) })
 		})
 
 		this.listen(chat, "channel set", channel => {
@@ -26,6 +26,7 @@ export default class extends Binding {
 			if(chat.channel !== null) {
 				chat.emit("channel unset", chat.channel)
 			}
+			this.identifier.network.style.backgroundColor = ""
 			chat.channel = channel
 			if (channel.disconnected === true) {
 				chat.emit("counter clear")
@@ -38,6 +39,11 @@ export default class extends Binding {
 			}
 		})
 
+
+		this.listen(chat, "channel unset", channel => {
+			this.identifier.network.style.backgroundColor = "gray"
+		})
+
 		this.listen(chat, "channel left", () => {
 			if(chat.channels.length === 0) {
 				chat.emit("users list hide")
@@ -46,6 +52,13 @@ export default class extends Binding {
 
 		this.listen(chat, "channel disconnected", () => {
 			chat.emit("counter clear")
+		})
+
+		this.identifier.network.addEventListener("click", () => {
+			if(chat.channel) {
+				chat.emit("channel unset", chat.channel)
+				chat.channel = null
+			}
 		})
 
 	}

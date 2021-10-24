@@ -49,6 +49,14 @@ export default class extends Binding {
 			}
 		})
 
+		this.listen(chat, "channel unset", channel => {
+			this.root.innerHTML = ""
+			for (const message of chat.messages) {
+				const replacedMessage = chat.decorateMessage(message.message)
+				this.run(MessageModel({ message, replacedMessage }), { binding: new MessageBinding() })
+			}
+		})
+
 		this.listen(chat, "channel left", () => {
 			if (chat.channels.length === 0) {
 				this.root.style.gridArea = "span 2 / 2"

@@ -14,6 +14,12 @@ export default class extends Binding {
 			}
 		})
 
+		this.listen(chat, "channel unset", channel_ => {
+			if (channel.name === channel_.name) {
+				this.root.style.backgroundColor = ""
+			}
+		})
+
 		this.listen(chat, "channel left", name => {
 			if (name === channel.name) {
 				this.remove()

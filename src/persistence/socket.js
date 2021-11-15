@@ -12,6 +12,8 @@ export default async properties => {
 
 	const socket = io.connect(config.SOCKET_URL, { ...config.SOCKET_OPTIONS, transports : ['websocket'] })
 
+	chat.socket = socket
+
 	socket.on("connect_error", (err) => {
 		console.log(`connect_error due to ${err.message}`, err);
 	});

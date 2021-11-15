@@ -4,7 +4,7 @@ export default {
 	children: [
 		{
 			tagName: "div",
-			style: "padding: 5px; text-align: center;cursor: pointer; background-color: gray",
+			style: "padding: 5px; text-align: center; cursor: pointer; background-color: gray;",
 			identifier: "network",
 			textContent: "Network"
 		},

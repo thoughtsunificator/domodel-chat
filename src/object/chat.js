@@ -1,78 +1,43 @@
 import { Observable } from "domodel"
-import { Tokenizer } from "@thoughtsunificator/message-parser"
+import { Chat as ChatServer } from "@domodel-chat/server"
 
-export const PREFIX_CHANNEL = "#"
-export const PREFIX_OWNER = "@"
-export const DEFAULT_NICKNAME = "Anon"
-export const DEFAULT_TOPIC = "Topic not set. Use /topic to change the topic."
-
-const SOCKET_STATE_INITIAL = "SOCKET_STATE_INITIAL"
-export const SOCKET_STATE_CONNECTED = "SOCKET_STATE_CONNECTED"
-export const SOCKET_STATE_DISCONNECTED = "SOCKET_STATE_DISCONNECTED"
-
-export default class extends Observable {
+/**
+ * @global
+ */
+class Chat extends Observable {
 
 	constructor() {
 		super()
-		this._user = { nickname: DEFAULT_NICKNAME }
-		this._users = [this.user]
+		this._user = { nickname: ChatServer.DEFAULT_NICKNAME }
+		this._users = [ this.user ]
 		this._channels = []
 		this._channel = null
-		this._messages = []
-		this._socketState = SOCKET_STATE_INITIAL
+		this._socket = null
+		this._networkMessages = []
 	}
 
+	/**
+	 * @param {object} user
+	 * @param {object} channel
+	 */
 	getUserPrefix(user, channel) {
-		if (user.id === channel.owner) {
-			return PREFIX_OWNER
+		if (user.socketId === channel.owner) {
+			return ChatServer.PREFIX_OWNER
 		}
 		return ""
 	}
 
-	getUserById(id) {
-		return this.users.find(user => user.id === id)
-	}
-
+	/**
+	 * @param {string} name
+	 */
 	removeChannel(name) {
 		const index = this.channels.findIndex(channel => channel.name === name)
 		this.channels.splice(index, 1)
 	}
 
-	decorateMessage(text, server = false) {
-		const tokens = Tokenizer.tokenize(text)
-		const message = {
-			tagName: "span",
-			children: []
-		}
-		for (const [index, token] of tokens.entries()) {
-			if(token.type === "CHANNEL") {
-				message.children.push({
-					tagName: "a",
-					href: "javascript:;",
-					onclick: () => this.emit("channel join", token.buffer),
-					textContent: token.buffer
-				})
-			} else if(token.type === "USER") {
-				message.children.push({
-					tagName: "a",
-					href: "javascript:;",
-					onclick: () => this.emit("input", { value: `/MSG ${token.buffer.substring(1)} `, focus: true}),
-					textContent: token.buffer
-				})
-			} else {
-				const messageModel = {
-					tagName: "span",
-					textContent: token.buffer,
-				}
-				if(server) {
-					messageModel.style = `white-space: pre`
-				}
-				message.children.push(messageModel)
-			}
-		}
-		return message
-	}
-
+	/**
+	 * @type {object}
+	 */
 	get user() {
 		return this._user
 	}
@@ -81,6 +46,9 @@ export default class extends Observable {
 		this._user = user
 	}
 
+	/**
+	 * @type {array}
+	 */
 	get users() {
 		return this._users
 	}
@@ -89,6 +57,9 @@ export default class extends Observable {
 		this._users = users
 	}
 
+	/**
+	 * @type {array}
+	 */
 	get channels() {
 		return this._channels
 	}
@@ -97,6 +68,9 @@ export default class extends Observable {
 		this._channels = channels
 	}
 
+	/**
+	 * @type {object}
+	 */
 	get channel() {
 		return this._channel
 	}
@@ -105,20 +79,28 @@ export default class extends Observable {
 		this._channel = channel
 	}
 
-	get messages() {
-	 return this._messages
+	/**
+	 * @type {array}
+	 */
+	get networkMessages() {
+		return this._networkMessages
 	}
 
-	set messages(messages) {
-		this._messages = messages
+	set networkMessages(networkMessages) {
+		this._networkMessages = networkMessages
 	}
 
-	get socketState() {
-		return this._socketState
+	/**
+	 * @type {object}
+	 */
+	get socket() {
+		return this._socket
 	}
 
-	set socketState(socketState) {
-		this._socketState = socketState
+	set socket(socket) {
+		this._socket = socket
 	}
 
 }
+
+export default Chat

@@ -66,7 +66,7 @@ class MessagesEventListener extends EventListener {
 				chat.channel.messages.push(message)
 				this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
 			} else {
-				chat.channels.find(ch => ch.name === channelName).messages.push(message)
+				chat.channels.find(channel => channel.name === channelName).messages.push(message)
 			}
 		} else if(type === Chat.MESSAGE_TYPE.NETWORK) {
 			chat.networkMessages.push(message)

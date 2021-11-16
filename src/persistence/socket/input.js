@@ -1,14 +1,13 @@
+import Chat from "../../object/chat.js"
+import { Chat as ChatServer } from "@domodel-chat/server"
+
 export default (properties) => {
 
 	const { chat, socket } = properties
 
-	chat.listen("nickname set", nickname => {
-		socket.emit("nickname set", nickname)
-	})
-
-	socket.on("nickname set", nickname => {
+	socket.on(ChatServer.EVENT.USER_RENAME, nickname => {
 		chat.user.nickname = nickname
-		chat.emit("nickname changed", nickname)
+		chat.emit("nicknameChanged", nickname)
 	})
 
 }

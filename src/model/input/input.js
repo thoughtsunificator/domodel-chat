@@ -1,4 +1,4 @@
-import { DEFAULT_NICKNAME } from "../object/chat.js"
+import { Chat as ChatServer } from "@domodel-chat/server"
 
 export default properties => ({
 	id: "input",
@@ -35,12 +35,12 @@ export default properties => ({
 					tagName: "button",
 					style: "border: none; background-color: transparent",
 					identifier: "buttonNick",
-					textContent: `${DEFAULT_NICKNAME}`
+					textContent: `${ChatServer.DEFAULT_NICKNAME}`
 				},
 				{
 					tagName: "div",
 					identifier: "popup",
-					style: "position:absolute; display: none; place-items:center; height:100%; width:100%; top: 0; left: 0; background-color: #000000b3;",
+					style: "position: absolute; display: none; place-items:center; height:100%; width:100%; top: 0; left: 0; background-color: #000000b3;",
 					children: [
 						{
 							tagName: "div",

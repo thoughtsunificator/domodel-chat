@@ -1,37 +1,31 @@
 import { Binding } from "domodel"
 import { Processor } from "@thoughtsunificator/command-processor"
+import { Chat as ChatServer } from "@domodel-chat/server"
 
-import { SOCKET_STATE_CONNECTED } from "../object/chat.js"
+import InputEventListener from "./input.event.js"
 
-export default class extends Binding {
+import Chat from "/object/chat.js"
+
+/**
+ * @global
+ */
+class InputBinding extends Binding {
+
+	/**
+	 * @param {object} properties
+	 * @param {Chat}   properties.chat
+	 */
+	constructor(properties) {
+		super(properties, new InputEventListener(properties.chat))
+	}
 
 	onCreated() {
 
 		const { chat, commands } = this.properties
 
 		const _history = []
-		let _historyIndex = 0
 		const _commandProcessor = new Processor(commands)
-
-		this.listen(chat, "nickname changed", data => {
-			this.identifier.buttonNick.textContent = data
-		})
-
-		this.listen(chat, "input", data => {
-			const {value, focus, increment} = data
-			if(increment === true) {
-				this.identifier.input.value += value
-			} else {
-				this.identifier.input.value = value
-			}
-			if(focus === true) {
-				this.identifier.input.focus()
-			}
-		})
-
-		this.listen(chat, "input focus", () => {
-			this.identifier.input.focus()
-		})
+		let _historyIndex = 0
 
 		this.identifier.input.addEventListener("keyup", event => {
 			if (event.keyCode === 38 && _historyIndex > 0) {
@@ -52,18 +46,22 @@ export default class extends Binding {
 				if (value.substr(0, 1) === Processor.PREFIX_COMMAND) {
 					const command = _commandProcessor.run(value)
 					if(command.error) {
-						chat.emit("chat message", command.error)
+						chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: command.error })
 					} else {
 						chat.emit(command.data, command.args)
 					}
 					_commandProcessor.run(value)
 				} else {
-					if (chat.socketState !== SOCKET_STATE_CONNECTED) {
-						chat.emit("chat message", "Your are not connected to the network. Try /connect" )
+					if (!chat.socket.connected) {
+						chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "Your are not connected to the network. Try /connect"  })
 					} else if (chat.channel === null) {
-						chat.emit("chat message", "No channel joined. Try /join #<channel>")
+						chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "No channel joined. Try /join #<channel>" })
 					} else {
-						chat.emit("message send", { source: chat.user.nickname, message: value })
+						if(value.length > ChatServer.MAXIMUM_MESSAGE_LENGTH) {
+							chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: `Message cannot exceed ${ChatServer.MAXIMUM_MESSAGE_LENGTH} characters.` })
+						} else {
+							chat.socket.emit(ChatServer.EVENT.CHANNEL_MESSAGE, { channelName: chat.channel.name, message: { source: chat.user.nickname, content: value } })
+						}
 					}
 				}
 			}
@@ -84,7 +82,11 @@ export default class extends Binding {
 		this.identifier.input_nick.addEventListener("keypress", (event) => {
 			if (event.keyCode === 13) {
 				this.identifier.popup.style.display = "none"
-				chat.emit("nickname set", this.identifier.input_nick.value)
+				if(chat.socket.connected) {
+					chat.emit("userRename", this.identifier.input_nick.value)
+				} else {
+					chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "Your are not connected to the network. Try /connect"  })
+				}
 			}
 		})
 
@@ -111,3 +113,5 @@ export default class extends Binding {
 	}
 
 }
+
+export default InputBinding

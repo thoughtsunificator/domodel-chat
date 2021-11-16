@@ -64,10 +64,9 @@ class ChannelsEventListener extends EventListener {
 	 */
 	channelLeft() {
 		const { chat } = this.properties
-		chat.emit("topicHide")
 		if(chat.channels.length === 0) {
 			this.identifier.network.style.backgroundColor = "gray"
-			chat.emit("usersListHide")
+			chat.emit("networkSet")
 		}
 	}
 

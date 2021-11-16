@@ -25,27 +25,28 @@ export default (properties) => {
 	socket.on(ChatServer.EVENT.CHANNEL_RECONNECT, data => {
 		chat.user.nickname = nickname
 		const channel = chat.channels.find(channel => channel.name === data.channel.name)
-		console.log(channel)
 		channel.users = data.channel.users
 		channel.owner = data.channel.owner
 		channel.topic = data.channel.topic
+		channel.messages = data.channel.messages
 		channel.disconnected = false
 		chat.emit("channelReconnected", channel)
 		chat.emit("channelSet", channel)
 	})
 
 	socket.on(ChatServer.EVENT.CHANNEL_USER_JOINED, data => {
-		const index = chat.channels.findIndex(channel => channel.name === data.channel.name)
-		chat.channels[index].users = data.channel.users
-		if(chat.channel.name === data.channel.name) {
-			chat.emit("userAdd", data)
+		const channel = chat.channels.find(channel => channel.name === data.channelName)
+		const user = data.user
+		channel.users.push(user)
+		if(chat.channel.name === data.channelName) {
+			chat.emit("userAdd", { channel, user })
 		}
 	})
 
 	socket.on(ChatServer.EVENT.CHANNEL_USER_LEFT, data => {
-		const index = chat.channels.findIndex(channel => channel.name === data.channel.name)
-		chat.channels[index].users = data.channel.users
-		if (chat.channel.name === data.channel.name) {
+		const channel = chat.channels.find(channel => channel.name === data.channelName)
+		channel.users = channel.users.filter(user => user.socketId !== data.socketId)
+		if (chat.channel.name === data.channelName) {
 			chat.emit("channelUserLeft", data)
 		}
 	})

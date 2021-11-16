@@ -20,9 +20,7 @@ class ChannelsBinding extends Binding {
 		const { chat } = this.properties
 
 		this.identifier.network.addEventListener("click", () => {
-			if(chat.channel) {
-				chat.emit("channelUnset", chat.channel)
-			}
+			chat.emit("networkSet", chat.channel)
 		})
 
 	}

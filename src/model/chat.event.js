@@ -24,6 +24,18 @@ class ChatEventListener extends EventListener {
 	}
 
 	/**
+	 * @event ChatEventListener#networkSet
+	 */
+	networkSet() {
+		const { chat } = this.properties
+		if(chat.channel !== null) {
+			chat.emit("channelUnset", chat.channel)
+			chat.emit("usersListHide")
+			chat.emit("topicHide")
+		}
+	}
+
+	/**
 	 * @event ChatEventListener#help
 	 */
 	help() {

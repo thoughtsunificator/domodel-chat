@@ -30,7 +30,7 @@ class MessagesEventListener extends EventListener {
 	}
 
 	/**
-	 * @event MessagesEventListener#chatMessage
+	 * @event MessagesEventListener#messagePrint
 	 * @property {string} content
 	 */
 	messagePrint(content) {
@@ -53,16 +53,13 @@ class MessagesEventListener extends EventListener {
 	messageAdd(data) {
 		const { chat } = this.properties
 		const { message, channel = null } = data
-		if (chat.channel === null) {
-			chat.networkMessages.push(message)
+		if(chat.channel !== null && chat.channel === channel) {
+			chat.channel.messages.push(message)
 			this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
 		} else if(channel !== null) {
 			chat.channels.find(ch => ch.name === channel.name).messages.push(message)
-			if(chat.channel.name === channel.name) {
-				this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
-			}
 		} else {
-			chat.channel.messages.push(message)
+			chat.networkMessages.push(message)
 			this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
 		}
 		this.root.scrollTop = this.root.scrollHeight

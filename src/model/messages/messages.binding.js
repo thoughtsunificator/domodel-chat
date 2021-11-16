@@ -34,18 +34,10 @@ class MessagesBinding extends Binding {
 			this.root.scrollTop = this.root.scrollHeight
 		})
 
-		this.listen(chat, "channelUnset", (channel) => {
+		this.listen(chat, "networkSet", (channel) => {
+			this.root.style.gridArea = "span 2 / 2"
 			for (const message of chat.networkMessages) {
 				this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
-			}
-		})
-
-		this.listen(chat, "channelLeft", () => {
-			if (chat.channels.length === 0) {
-				this.root.style.gridArea = "span 2 / 2"
-				for (const message of chat.networkMessages) {
-					this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
-				}
 			}
 		})
 

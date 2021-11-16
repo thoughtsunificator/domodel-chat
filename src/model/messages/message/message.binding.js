@@ -19,11 +19,11 @@ class MessageBinding extends Binding {
 
 		const { chat, message } = this.properties
 
-		this.listen(chat, "channelUnset", (channel) => {
+		this.listen(chat, "channelSet", (channel) => {
 			this.remove()
 		})
 
-		this.listen(chat, "channelSet", (channel) => {
+		this.listen(chat, "networkSet", (channel) => {
 			this.remove()
 		})
 

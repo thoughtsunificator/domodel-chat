@@ -7,9 +7,9 @@ export default (properties) => {
 
 	socket.on(ChatServer.EVENT.CHANNEL_LIST, channels => {
 		if(channels.length >= 1) {
-			chat.emit("messagePrint", channels.map(channel => channel.name).join(" "))
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: channels.map(channel => channel.name).join(" ") })
 		} else {
-			chat.emit("messagePrint", "No channels were found. Try creating one: /join #<channel>")
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "No channels were found. Try creating one: /join #<channel>" })
 		}
 	})
 
@@ -23,12 +23,11 @@ export default (properties) => {
 	})
 
 	socket.on(ChatServer.EVENT.CHANNEL_RECONNECT, data => {
-		chat.user.nickname = nickname
+		chat.user.nickname = data.nickname
 		const channel = chat.channels.find(channel => channel.name === data.channel.name)
 		channel.users = data.channel.users
 		channel.owner = data.channel.owner
 		channel.topic = data.channel.topic
-		channel.messages = data.channel.messages
 		channel.disconnected = false
 		chat.emit("channelReconnected", channel)
 		chat.emit("channelSet", channel)

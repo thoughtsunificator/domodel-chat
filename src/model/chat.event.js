@@ -40,7 +40,7 @@ class ChatEventListener extends EventListener {
 	 */
 	help() {
 		const { chat } = this.properties
-		chat.emit("messagePrint", `\nList of commands:\n${Commands.map(command => command.syntax).join("\n")}`)
+		chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: `\nList of commands:\n${Commands.map(command => command.syntax).join("\n")}` })
 	}
 
 	/**

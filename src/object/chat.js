@@ -6,6 +6,13 @@ import { Chat as ChatServer } from "@domodel-chat/server"
  */
 class Chat extends Observable {
 
+	static MESSAGE_TYPE = {
+		GLOBAL: "GLOBAL",
+		NETWORK: "NETWORK",
+		CHANNEL: "CHANNEL",
+		PRIVATE: "PRIVATE",
+	}
+
 	constructor() {
 		super()
 		this._user = { nickname: ChatServer.DEFAULT_NICKNAME }

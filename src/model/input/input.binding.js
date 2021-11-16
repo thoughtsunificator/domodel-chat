@@ -46,19 +46,19 @@ class InputBinding extends Binding {
 				if (value.substr(0, 1) === Processor.PREFIX_COMMAND) {
 					const command = _commandProcessor.run(value)
 					if(command.error) {
-						chat.emit("messagePrint", command.error)
+						chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: command.error })
 					} else {
 						chat.emit(command.data, command.args)
 					}
 					_commandProcessor.run(value)
 				} else {
 					if (!chat.socket.connected) {
-						chat.emit("messagePrint", "Your are not connected to the network. Try /connect" )
+						chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "Your are not connected to the network. Try /connect"  })
 					} else if (chat.channel === null) {
-						chat.emit("messagePrint", "No channel joined. Try /join #<channel>")
+						chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "No channel joined. Try /join #<channel>" })
 					} else {
 						if(value.length > ChatServer.MAXIMUM_MESSAGE_LENGTH) {
-							chat.emit("messagePrint", `Message cannot exceed ${ChatServer.MAXIMUM_MESSAGE_LENGTH} characters.`)
+							chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: `Message cannot exceed ${ChatServer.MAXIMUM_MESSAGE_LENGTH} characters.` })
 						} else {
 							chat.socket.emit(ChatServer.EVENT.CHANNEL_MESSAGE, { channelName: chat.channel.name, message: { source: chat.user.nickname, content: value } })
 						}
@@ -82,7 +82,11 @@ class InputBinding extends Binding {
 		this.identifier.input_nick.addEventListener("keypress", (event) => {
 			if (event.keyCode === 13) {
 				this.identifier.popup.style.display = "none"
-				chat.emit("userRename", this.identifier.input_nick.value)
+				if(chat.socket.connected) {
+					chat.emit("userRename", this.identifier.input_nick.value)
+				} else {
+					chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "Your are not connected to the network. Try /connect"  })
+				}
 			}
 		})
 

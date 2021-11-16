@@ -1,5 +1,7 @@
 import { Binding } from "domodel"
 
+import Chat from "/object/chat.js"
+
 import ChatEventListener from "./chat.event.js"
 
 import ChannelsModel from "./channels/channels.js"
@@ -38,7 +40,7 @@ class ChatBinding extends Binding {
 		this.run(UsersModel, { binding: new UsersBinding(this.properties) })
 		this.run(InputModel(this.properties), { binding: new InputBinding(this.properties) })
 
-		chat.emit("messagePrint", "Connecting...")
+		chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "Connecting..." })
 
 
 	}

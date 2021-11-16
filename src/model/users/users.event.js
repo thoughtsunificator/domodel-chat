@@ -1,4 +1,5 @@
 import { EventListener } from "domodel"
+import { Chat as ChatServer } from "@domodel-chat/server"
 
 import UserModel from "./user/user.js"
 
@@ -10,10 +11,13 @@ import UserBinding from "./user/user.binding.js"
 class UsersEventListener extends EventListener {
 
 	/**
-	 * @event UsersEventListener#userRenamed
+	 * @event InputEventListener#userRename
 	 * @property {string} nickname
-	 * @property {number} socketId
 	 */
+	userRename(nickname) {
+		const { chat } = this.properties
+		chat.socket.emit(ChatServer.EVENT.USER_RENAME, nickname)
+	}
 
 	/**
 	 * @event UsersEventListener#usersListHide
@@ -65,9 +69,9 @@ class UsersEventListener extends EventListener {
 	usersList() {
 		const { chat } = this.properties
 		if (chat.channel === null) {
-			chat.emit("messagePrint", "No channel joined. Try /join #<channel>")
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "No channel joined. Try /join #<channel>" })
 		} else {
-			chat.emit("messagePrint", chat.channel.users.map(user => user.nickname).join(", "))
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: chat.channel.users.map(user => user.nickname).join(", ") })
 		}
 	}
 

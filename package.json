@@ -23,7 +23,7 @@
 		"build": "rollup --config rollup.config.prod.js"
 	},
 	"dependencies": {
-		"@domodel-chat/server": "^0.0.3",
+		"@domodel-chat/server": "^0.0.6",
 		"@thoughtsunificator/command-processor": "^1.0.10",
 		"@thoughtsunificator/message-parser": "^1.0.10",
 		"css-generics": "^1.0.0",

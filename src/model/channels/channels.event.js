@@ -85,9 +85,9 @@ class ChannelsEventListener extends EventListener {
 	channelTopic(topic) {
 		const { chat } = this.properties
 		if(chat.channel === null) {
-			chat.emit("messagePrint", "No channel joined. Try /join #<channel>")
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "No channel joined. Try /join #<channel>" })
 		} else if(topic.length > ChatServer.MAXIMUM_TOPIC_LENGTH) {
-			chat.emit("messagePrint", `Topic cannot exceed ${ChatServer.MAXIMUM_TOPIC_LENGTH} characters.`)
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: `Topic cannot exceed ${ChatServer.MAXIMUM_TOPIC_LENGTH} characters.` })
 		} else {
 			chat.socket.emit(ChatServer.EVENT.CHANNEL_TOPIC, { topic, name: chat.channel.name })
 		}
@@ -126,7 +126,7 @@ class ChannelsEventListener extends EventListener {
 				chat.channel = null
 			}
 		} else if(chat.channel === null) {
-			chat.emit("messagePrint", "No channel joined. Try /join #<channel>")
+			chat.emit("messagePrint", { type: Chat.MESSAGE_TYPE.NETWORK, content: "No channel joined. Try /join #<channel>" })
 		} else {
 			chat.socket.emit(ChatServer.EVENT.CHANNEL_LEAVE, name)
 		}
@@ -148,7 +148,6 @@ class ChannelsEventListener extends EventListener {
 	channelDisconnected(channel) {
 		const { chat } = this.properties
 		channel.disconnected = true
-		chat.channel = null
 		chat.emit("userCounterClear")
 	}
 

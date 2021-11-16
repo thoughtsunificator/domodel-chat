@@ -7,15 +7,6 @@ import { Chat as ChatServer } from "@domodel-chat/server"
 class InputEventListener extends EventListener {
 
 	/**
-	 * @event InputEventListener#userRename
-	 * @property {string} nickname
-	 */
-	userRename(nickname) {
-		const { chat } = this.properties
-		chat.socket.emit(ChatServer.EVENT.USER_RENAME, nickname)
-	}
-
-	/**
 	 * @event InputEventListener#nicknameChanged
 	 * @property {string} nickname
 	 */

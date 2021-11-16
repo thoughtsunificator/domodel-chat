@@ -59,7 +59,6 @@ class MessagesEventListener extends EventListener {
 	 * @property {string} data.channelName
 	 */
 	messageAdd(data) {
-		console.log(data)
 		const { chat } = this.properties
 		const { type, message, channelName } = data
 		if((type === Chat.MESSAGE_TYPE.CHANNEL || type === Chat.MESSAGE_TYPE.PRIVATE)) {

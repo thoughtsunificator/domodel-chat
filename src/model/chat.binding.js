@@ -34,6 +34,8 @@ class ChatBinding extends Binding {
 
 		const { chat } = this.properties
 
+		this.listen(chat, "channelSet", () => this.root.classList.add("room"))
+
 		this.run(ChannelsModel, { binding: new ChannelsBinding(this.properties) })
 		this.run(TopicModel, { binding: new TopicBinding(this.properties) })
 		this.run(MessagesModel, { binding: new MessagesBinding(this.properties) })

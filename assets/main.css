@@ -94,3 +94,27 @@
 #messages {
 	padding:5px;
 }
+
+@media (max-width: 768px) {
+	#chat {
+		grid-template-columns: initial;
+		grid-template-rows: auto 1fr auto;
+	}
+	#chat.room {
+		grid-template-rows: auto auto auto 1fr auto;
+	}
+	#chat.room #users {
+		grid-column: 1 !important;
+		grid-row: 2 !important;
+	}
+	#input,
+	#chat:not(.room) #users,
+	#messages,
+	#channels {
+		grid-column: 1 !important;
+		grid-row: initial !important;
+	}
+	#users {
+		width: auto;
+	}
+}

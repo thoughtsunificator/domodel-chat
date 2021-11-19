@@ -28,6 +28,7 @@ class ChatEventListener extends EventListener {
 	 */
 	networkSet() {
 		const { chat } = this.properties
+		this.root.classList.remove("room")
 		if(chat.channel !== null) {
 			chat.emit("channelUnset", chat.channel)
 			chat.emit("usersListHide")

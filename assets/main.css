@@ -100,6 +100,10 @@
 		grid-template-columns: initial;
 		grid-template-rows: auto 1fr auto;
 	}
+	#channels .list,
+	#users .list {
+		max-height: 70px;
+	}
 	#chat.room {
 		grid-template-rows: auto auto auto 1fr auto;
 	}

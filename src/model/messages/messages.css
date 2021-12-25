@@ -1,0 +1,14 @@
+#messages {
+	background-color: white;
+	overflow: auto;
+	grid-area: span 2 / 2;
+	word-break: break-word;
+	padding:5px;
+}
+
+@media (max-width: 768px) {
+	#messages {
+		grid-column: 1 !important;
+		grid-row: initial !important;
+	}
+}

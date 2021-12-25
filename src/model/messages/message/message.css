@@ -1,0 +1,8 @@
+#messages .message > span:first-child {
+	margin-left: 5px;
+}
+
+#messages .message {
+	padding:2px 0;
+	word-break: break-all;
+}

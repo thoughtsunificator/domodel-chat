@@ -1,0 +1,2 @@
+@import "css-generics";
+@import "./model/**/*.css"; /* handled at build time by postcss-easy-import */

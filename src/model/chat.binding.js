@@ -1,6 +1,6 @@
 import { Binding } from "domodel"
 
-import Chat from "/object/chat.js"
+import Chat from "../object/chat.js"
 
 import ChatEventListener from "./chat.event.js"
 

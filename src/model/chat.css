@@ -1,0 +1,21 @@
+#chat {
+	display: grid;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.32);
+	grid-template-rows: 30px 1fr auto;
+	grid-template-columns: 200px 1fr;
+	grid-gap: var(--SIZE_XS);
+	padding: var(--SIZE_XS);
+}
+
+@media (max-width: 768px) {
+	#chat {
+		grid-template-columns: initial;
+		grid-template-rows: auto 1fr auto;
+	}
+
+	#chat.room {
+		grid-template-rows: auto auto auto 1fr auto;
+	}
+}

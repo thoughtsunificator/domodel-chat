@@ -1,0 +1,12 @@
+#topic {
+	display: none;
+	background-color: white;
+	text-indent: 10px;
+	overflow-x: hidden;
+	white-space: nowrap;
+}
+
+#chat.room #topic {
+	display: grid;
+	align-items: center;
+}

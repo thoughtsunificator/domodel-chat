@@ -1,5 +1,5 @@
 import { EventListener } from "domodel"
-import Chat from "/object/chat.js"
+import Chat from "../../object/chat.js"
 import { Chat as ChatServer } from "@domodel-chat/server"
 
 import MessageModel from "./message/message.js"

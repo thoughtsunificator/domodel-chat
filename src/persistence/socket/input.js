@@ -1,4 +1,3 @@
-import Chat from "../../object/chat.js"
 import { Chat as ChatServer } from "@domodel-chat/server"
 
 export default (properties) => {

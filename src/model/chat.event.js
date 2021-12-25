@@ -1,6 +1,6 @@
 import { EventListener } from "domodel"
 
-import Commands from "data/commands.js"
+import Commands from "../data/commands.js"
 
 /**
  * @global

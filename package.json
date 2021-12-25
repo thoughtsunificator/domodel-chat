@@ -1,35 +1,6 @@
 {
 	"name": "domodel-chat",
-	"devDependencies": {
-		"@rollup/plugin-alias": "^3.1.2",
-		"@rollup/plugin-node-resolve": "^13.0.0",
-		"@thoughtsunificator/rollup-plugin-config-env": "^1.0.4",
-		"eslint": "^7.0.0",
-		"postcss": "^8.3.6",
-		"postcss-import": "^14.0.2",
-		"rollup": "^2.60.0",
-		"rollup-plugin-copy-watch": "^0.0.1",
-		"rollup-plugin-delete": "^2.0.0",
-		"rollup-plugin-livereload": "^2.0.0",
-		"rollup-plugin-postcss": "^4.0.0",
-		"rollup-plugin-root-import": "^1.0.0",
-		"rollup-plugin-serve": "^1.1.0",
-		"rollup-plugin-terser": "^7.0.2"
-	},
-	"scripts": {
-		"generate-docs": "jsdoc --configure .jsdoc.json --verbose",
-		"lint": "eslint src/**/*.js",
-		"start": "rollup --config rollup.config.dev.js --watch",
-		"build": "rollup --config rollup.config.prod.js"
-	},
-	"dependencies": {
-		"@domodel-chat/server": "^0.0.6",
-		"@thoughtsunificator/command-processor": "^1.0.10",
-		"@thoughtsunificator/message-parser": "^1.0.10",
-		"css-generics": "^1.0.0",
-		"domodel": "^1.0.52",
-		"socket.io-client": "^4.1.3"
-	},
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/thoughtsunificator/domodel-chat.git"
@@ -39,5 +10,47 @@
 	},
 	"author": "Romain Lebesle <oss@thoughtsunificator.me> (https://thoughtsunificator.me)",
 	"license": "MIT",
-	"version": "0.0.7"
+	"version": "0.0.7",
+	"homepage": "https://github.com/thoughtsunificator/domodel-chat#readme",
+	"scripts": {
+		"start": "rollup --config rollup.config.mjs --watch --environment BUILD:development",
+		"build": "rollup --config rollup.config.mjs --environment BUILD:production",
+		"test": "web-test-runner \"test/**/*.test.js\" --node-resolve",
+		"generate-docs": "jsdoc --configure .jsdoc.json --verbose",
+		"eslint": "eslint 'src/**/*.js'",
+		"stylelint": "stylelint 'src/**/*.css'"
+	},
+	"devDependencies": {
+		"@esm-bundle/chai": "^4.3.4-fix.0",
+		"@rollup/plugin-alias": "^3.1.2",
+		"@rollup/plugin-node-resolve": "^13.1.1",
+		"@thoughtsunificator/rollup-plugin-window-env": "^1.0.7",
+		"@web/test-runner": "^0.13.22",
+		"docdash": "^1.2.0",
+		"eslint": "^8.5.0",
+		"eslint-import-resolver-custom-alias": "^1.3.0",
+		"eslint-import-resolver-node": "^0.3.6",
+		"eslint-plugin-eslint-plugin": "^4.1.0",
+		"eslint-plugin-import": "^2.25.3",
+		"jsdoc": "^3.6.7",
+		"postcss": "^8.4.5",
+		"postcss-easy-import": "^3.0.0",
+		"postcss-import": "^14.0.2",
+		"rollup": "^2.61.1",
+		"rollup-plugin-copy-watch": "^0.0.1",
+		"rollup-plugin-livereload": "^2.0.5",
+		"rollup-plugin-postcss": "^4.0.0",
+		"rollup-plugin-serve": "^1.1.0",
+		"rollup-plugin-terser": "^7.0.2",
+		"stylelint": "^14.1.0",
+		"stylelint-config-standard": "^24.0.0"
+	},
+	"dependencies": {
+		"@domodel-chat/server": "^0.0.6",
+		"@thoughtsunificator/command-processor": "^1.0.10",
+		"@thoughtsunificator/message-parser": "^1.0.10",
+		"css-generics": "^1.0.0",
+		"domodel": "^1.0.52",
+		"socket.io-client": "^4.1.3"
+	}
 }

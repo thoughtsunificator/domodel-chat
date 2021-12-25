@@ -4,7 +4,7 @@ import { Chat as ChatServer } from "@domodel-chat/server"
 
 import InputEventListener from "./input.event.js"
 
-import Chat from "/object/chat.js"
+import Chat from "../../object/chat.js"
 
 /**
  * @global

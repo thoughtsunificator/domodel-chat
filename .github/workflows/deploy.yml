@@ -25,5 +25,5 @@ jobs:
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: dist/prod/public
+          FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

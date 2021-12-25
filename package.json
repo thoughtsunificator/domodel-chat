@@ -10,7 +10,7 @@
 	},
 	"author": "Romain Lebesle <oss@thoughtsunificator.me> (https://thoughtsunificator.me)",
 	"license": "MIT",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"homepage": "https://github.com/thoughtsunificator/domodel-chat#readme",
 	"scripts": {
 		"start": "rollup --config rollup.config.mjs --watch --environment BUILD:development",

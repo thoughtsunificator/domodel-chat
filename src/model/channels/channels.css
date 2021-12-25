@@ -1,0 +1,26 @@
+#channels {
+	background-color: white;
+	overflow: hidden;
+	height: 100%;
+	grid-row: span 3;
+}
+
+#channels .list {
+	height: 100%;
+	overflow: auto;
+}
+
+#channels .channel {
+	cursor: pointer;
+	padding: 5px;
+}
+
+@media (max-width: 768px) {
+	#channels .list {
+		max-height: 70px;
+	}
+	#channels {
+		grid-column: 1 !important;
+		grid-row: initial !important;
+	}
+}

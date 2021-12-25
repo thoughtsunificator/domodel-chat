@@ -1,0 +1,15 @@
+#input {
+	display: flex;
+	grid-area: 3 / 2;
+}
+
+#input > input {
+	flex-grow: 1
+}
+
+@media (max-width: 768px) {
+	#input {
+		grid-column: 1 !important;
+		grid-row: initial !important;
+	}
+}

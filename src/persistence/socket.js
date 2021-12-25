@@ -4,13 +4,11 @@ import Chat from "./socket/chat.js"
 import Messages from "./socket/messages.js"
 import Users from "./socket/users.js"
 
-import config from ":config"
-
 export default async properties => {
 
 	const { chat } = properties
 
-	const socket = io.connect(config.SOCKET_URL, { ...config.SOCKET_OPTIONS, transports : ['websocket'] })
+	const socket = io.connect(window.SOCKET_URL, { ...window.SOCKET_OPTIONS, transports : ['websocket'] })
 
 	chat.socket = socket
 

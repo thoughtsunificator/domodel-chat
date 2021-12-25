@@ -1,0 +1,44 @@
+#users {
+	display: none;
+	grid-area: span 3 / 3;
+	width: 200px;
+	grid-template-rows: 20px 1fr;
+	grid-gap: var(--SIZE_XS);
+}
+
+#users .counter {
+	background-color: white;
+	border: 1px solid black;
+	text-align: center;
+	grid-row: 1;
+	overflow-x: hidden;
+	white-space: nowrap;
+	scrollbar-width: none;
+}
+
+#users .list {
+	background-color: white;
+	overflow: auto;
+	grid-row-start: span 2;
+	grid-row-end: auto;
+}
+
+@media (max-width: 768px) {
+	#users .list {
+		max-height: 70px;
+	}
+
+	#chat:not(.room) #users {
+		grid-column: 1 !important;
+		grid-row: initial !important;
+	}
+
+	#chat.room #users {
+		grid-column: 1 !important;
+		grid-row: 2 !important;
+	}
+
+	#users {
+		width: auto;
+	}
+}

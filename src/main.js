@@ -1,13 +1,13 @@
-import "assets/main.css"
+import "./main.css"
 
 import { Core } from "domodel"
-import ChatModel from "/model/chat.js"
-import ChatBinding from "/model/chat.binding.js"
-import Chat from "/object/chat.js"
-import Persistence from "/persistence/persistence.js"
+import ChatModel from "./model/chat.js"
+import ChatBinding from "./model/chat.binding.js"
+import Chat from "./object/chat.js"
+import Persistence from "./persistence/persistence.js"
 
-import emojis from "data/emojis.js"
-import commands from "data/commands.js"
+import emojis from "./data/emojis.js"
+import commands from "./data/commands.js"
 
 window.addEventListener("load", function() {
 

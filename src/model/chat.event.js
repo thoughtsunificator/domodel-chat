@@ -1,6 +1,7 @@
 import { EventListener } from "domodel"
 
 import Commands from "../data/commands.js"
+import Chat from "../object/chat.js"
 
 /**
  * @global

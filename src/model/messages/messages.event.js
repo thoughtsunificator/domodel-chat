@@ -79,6 +79,13 @@ class MessagesEventListener extends EventListener {
 			this.run(MessageModel(message), { binding: new MessageBinding({ message }) })
 		}
 		this.root.scrollTop = this.root.scrollHeight
+		if(message.source !== chat.user.nickname) {
+			Notification.requestPermission().then((permission) => {
+				if (permission === "granted") {
+					new Notification(`${message.source}: ${message.content}`);
+				}
+			})
+		}
 	}
 
 }
